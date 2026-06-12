@@ -1,0 +1,11 @@
+Scenario: Employee & Department Management System
+1.Write an SQL query to find all employees along with their department names
+(Expected Columns: emp_name, salary, dept_name)
+2.Write an SQL query to display all employees, including those who are not assigned to any department.
+(Expected Columns: emp_name, salary, dept_name)
+3.List all departments and the employees working in them. Include departments that have no employees(Expected Columns: emp_name, dept_name)
+4.Write an SQL query to get a full list of employees and departments, even if they don’t have a match.(Expected Columns: emp_name, dept_name)
+5.Write a query to generate a list where every employee is assigned to every project.
+(Expected Columns: emp_name, project_name)
+6.Write an SQL query to list each employee along with their manager’s name.
+( Expected Columns: Employee, Manager)
