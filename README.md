@@ -1,2 +1,2 @@
-This repository contains a set of SQL practice assignments designed for students learning SQL fundamentals and real‑world query writing.
-Each assignment focuses on core SQL concepts such as joins, grouping, filtering, aggregation, and subqueries.
+A structured collection of SQL exercises covering fundamentals to advanced analytics.
+This repository includes chapter‑wise assignments, real‑time datasets, joins, window functions, and business‑oriented mini‑projects.
