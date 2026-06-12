@@ -1,0 +1,136 @@
+1.Write a query to get all policies purchased by “Rajesh Kumar”.
+
+select c.customer_name,p.policy_type from customer_new c
+join policies p
+on c.customer_id = p.cust_id where c.customer_name ='Rajesh Kumar';
+
+2.List all claims that are still pending.
+
+select * from claims where claim_status='Pending';
+
+3.Find the top 2 customers who paid the highest total premium.
+
+select c.customer_name,sum(p.premium_amount) as totalPremium,
+RANK() OVER(order by sum(p.premium_amount) desc ) as PremiumRank
+from customer_new c
+join policies p
+on c.customer_id = p.cust_id
+group by c.customer_name
+
+4.Show customers who never made a claim.
+
+select c.customer_name,c.customer_id,cl.claim_id from customer_new c
+left join claims cl
+on c.customer_id = cl.cust_id where cl.claim_id IS NULL;
+
+5.Find the average claim amount for each policy type.
+
+select policy_type,Avg(premium_amount) as AvgPremium
+from policies 
+group by policy_type
+================================================================================
+6.Find all orders where order_date is between 2024-05-01 and 2024-07-01.
+
+select * from ecommerce_sales where order_date between '2024-05-01' and '2024-07-01';
+
+
+7.List all customers whose name starts with ‘J’.
+select * from ecommerce_sales where customer_name like 'J%';
+
+8.Show the total sales amount (quantity × price) for each category.
+
+select category, sum(quantity*price)as totalsales from ecommerce_sales
+group by category
+
+9.Find the average price of products in the Electronics category.
+select category,avg(price) as Averageprice from ecommerce_sales where category='Electronics';
+
+10.Show the number of orders made in each city.
+
+select count(order_id)as NumberofOrders,city from ecommerce_sales group by city
+==================================================================================================
+11.List all employees with their department names.
+
+select en.emp_name,d.department_name from employees_new en
+left join departments d
+on en.department_id=d.department_id
+
+
+12.Find employees who don’t belong to any department (LEFT JOIN).
+
+select en.emp_name,d.department_name from employees_new en
+left join departments d
+on en.department_id=d.department_id where d.department_name IS NULL
+
+13.Find total salary paid per department.
+
+select department_id,sum(salary) as totalsalary from employees_new
+group by department_id
+
+
+14.Show orders along with customer names (JOIN ecommerce_sales with customers).
+
+select c.first_name,sum(p.amount) as totalamt from customers c
+left join payments p
+on c.customer_id=p.customer_id
+group by c.first_name;
+
+
+15.Which customers never placed an order?
+
+select c.first_name,sum(p.amount) as totalamt from customers c
+left join payments p
+on c.customer_id=p.customer_id
+group by c.first_name having totalamt IS NULL;
+==============================================================================
+16.Use ROW_NUMBER() to assign a sequence number to each order by customer_name.
+
+
+select customer_id,customer_name,row_number() over(order by customer_name desc) as Rownumber
+from ecommerce_sales
+
+
+17.Use RANK() to rank products by total sales.
+
+select product_name,sum(price*quantity) as totalsales,
+RANK()OVER(order by sum(price*quantity) desc) as RankOrder
+from ecommerce_sales
+group by product_name;
+
+
+18.Find the top 3 customers with the highest spending.
+
+select product_name,sum(price*quantity) as totalsales,
+RANK()OVER(order by sum(price*quantity) desc) as RankOrder
+from ecommerce_sales
+group by product_name
+order by RankOrder 
+limit 3;
+========================================================================
+19.Write a query with a CASE statement that classifies orders as:
+High Value (> 1000);Medium Value (500–1000);Low Value (< 500)
+
+
+select customer_name,price,
+CASE
+WHEN price > 1000 THEN 'High Value'
+        WHEN price BETWEEN 500 AND 1000 THEN 'Medium Value'
+        ELSE 'Low Value'
+END as saleslevel
+from ecommerce_sales;
+
+20.Find month-on-month sales growth using a window function.
+
+select customer_name,product_name, price, 
+LAG(price) OVER(order by price desc) as previousmonth,
+(price - LAG(price) OVER(order by price)) as salesgrowth,
+CASE
+when (price - LAG(price) OVER(order by price)) >6 THEN 'increase'
+else 'decrease'
+end as trends
+from ecommerce_sales;
+=======================================================================================
+
+
+
+
