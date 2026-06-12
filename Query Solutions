@@ -1,0 +1,102 @@
+select * from employees_new;
+select * from departments;
+select * from departments;
+
+---------------------------------
+Question :1
+------------
+select en.emp_name,en.salary,d.department_name from employees_new en
+
+inner join departments d
+
+ON en.department_id =d.department_id
+
+Result 1:
+--------
+Alice	70000	HR
+Bob	80000	Finance
+Charlie	90000	IT
+David	75000	HR
+-------------------------
+
+Question 2:
+----------
+select en.emp_name,en.salary,d.department_name from employees_new en
+
+left join departments d
+
+ON en.department_id =d.department_id
+
+Result 2:
+Alice	70000	HR
+Bob	80000	Finance
+Charlie	90000	IT
+David	75000	HR
+Eve	65000	NULL
+----------------------------------
+Question 3:
+
+select en.emp_name,d.department_name from  departments d
+
+left join employees_new en
+
+ON  d.department_id = en.department_id
+
+Result 3:
+
+David	HR
+Alice	HR
+Bob	Finance
+Charlie	IT
+NULL	Marketing
+--------------------------------------------------------
+Question 4:
+------------
+
+select en.emp_name,d.department_name from employees_new en
+
+left join departments d
+
+ON en.department_id =d.department_id
+
+Result 4:
+--------
+Alice	HR
+Bob	Finance
+Charlie	IT
+David	HR
+Eve	NULL
+----------------------------------
+Question 5:
+-----------
+select en.emp_name,p.Project_name from employees_new en
+
+inner join Projects p
+
+ON en.emp_id = p.Emp_id
+
+Result 5:
+-------
+Alice	CVS
+Bob	AETNA
+Charlie	HF
+David	CVS
+Eve	HF
+------------------------------------------------
+Question no 6:
+-----------
+select en.emp_name,p.Project_MgrName from employees_new en
+
+inner join Projects p
+
+ON en.emp_id = p.Emp_id
+
+Result 6:
+--------
+Alice	Raja
+Bob	Guna
+Charlie	Kumar
+David	Arun
+Eve	Raja
+
+
